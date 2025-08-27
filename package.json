@@ -11,7 +11,8 @@
     "build": "tsc -b",
     "test": "npm run -w ttl_server test",
     "test:watch": "npm run -w ttl_server test -- --watch",
-    "coverage": "npm run -w ttl_server coverage"
+    "coverage": "npm run -w ttl_server coverage",
+    "openapi": "npm run -w ttl_server openapi"
   },
   "devDependencies": {
     "@types/node": "^22.5.0",
