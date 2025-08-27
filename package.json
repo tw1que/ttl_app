@@ -1,0 +1,5 @@
+{
+  "name": "ttl_app",
+  "private": true,
+  "workspaces": ["ttl_client", "ttl_server"]
+}
