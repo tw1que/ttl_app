@@ -1,21 +1,17 @@
-import express, { Request, Response } from 'express';
-import { z } from 'zod';
+import express from 'express';
+
+import { errorHandler } from './lib/errors.js';
+import { notFound } from './lib/notFound.js';
+import { requestIdLogger } from './lib/requestIdLogger.js';
+import healthRoutes from './routes/healthRoutes.js';
+import itemsRoutes from './routes/itemsRoutes.js';
 
 const app = express();
+app.use(requestIdLogger);
 app.use(express.json());
-
-// health
-app.get('/health', (_req: Request, res: Response) => {
-  res.status(200).json({ ok: true });
-});
-
-// voorbeeld route met validatie
-const IdParam = z.object({ id: z.string().uuid() });
-app.get('/items/:id', (req: Request, res: Response) => {
-  const parsed = IdParam.safeParse(req.params);
-  if (!parsed.success) return res.status(400).json({ error: 'invalid id' });
-  // later: service call
-  return res.json({ id: parsed.data.id });
-});
+app.use(healthRoutes);
+app.use(itemsRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
