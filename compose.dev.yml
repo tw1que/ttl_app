@@ -28,6 +28,7 @@ services:
     volumes:
       - ./ttl_server:/app
       - /app/node_modules
+      - ./tsconfig.base.json:/tsconfig.base.json:ro
     command: npm run dev
     ports: ["3000:3000"]
 
@@ -42,6 +43,7 @@ services:
     volumes:
       - ./ttl_client:/app
       - /app/node_modules
+      - ./tsconfig.base.json:/tsconfig.base.json:ro
     command: npm start
     ports: ["5173:5173"]
 
