@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
-import * as itemService from '../services/itemService.js';
 import { createInMemoryItemRepository } from '../repositories/memory/itemRepository.js';
+import * as itemService from '../services/itemService.js';
 
 const itemRepository = createInMemoryItemRepository();
 
