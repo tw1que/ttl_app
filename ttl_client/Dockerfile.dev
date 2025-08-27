@@ -1,0 +1,23 @@
+# Gebruik de officiële Node.js image als basis
+FROM node:16-alpine
+
+# Stel de werkdirectory in
+WORKDIR /app
+
+# Kopieer package.json en package-lock.json (als deze bestaat)
+COPY package*.json ./
+
+# Installeer afhankelijkheden
+RUN npm install
+
+# We kopiëren de broncode niet, omdat we een volume zullen gebruiken
+# Het volume wordt gedefinieerd in docker-compose.yml:
+# volumes:
+#   - ./:/app
+
+# Stel de poort in
+EXPOSE 3000
+
+# Start de applicatie met nodemon voor hot reloading
+# Start de React-applicatie in ontwikkelingsmodus met hot reloading
+CMD ["npm", "start"]
