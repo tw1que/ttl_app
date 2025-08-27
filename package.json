@@ -1,5 +1,32 @@
 {
   "name": "ttl_app",
   "private": true,
-  "workspaces": ["ttl_client", "ttl_server"]
+  "workspaces": [
+    "ttl_client",
+    "ttl_server"
+  ],
+  "scripts": {
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
+    "format": "prettier . --write",
+    "build": "tsc -b",
+    "test": "npm run -w ttl_server test",
+    "test:watch": "npm run -w ttl_server test -- --watch",
+    "coverage": "npm run -w ttl_server coverage"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "@types/supertest": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
+    "@vitest/coverage-v8": "^2.1.9",
+    "eslint": "^9.9.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.30.0",
+    "prettier": "^3.3.3",
+    "supertest": "^7.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
 }
