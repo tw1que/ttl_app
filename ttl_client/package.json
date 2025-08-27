@@ -26,6 +26,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "start": "vite"
+    "start": "vite --host 0.0.0.0 --port 5173 --strictPort"
   }
 }
