@@ -1,23 +1,27 @@
 # AGENTS.md
 
+Deze file fungeert als **README voor agents**. Werk altijd op een aparte branch, houd commits klein en voer alle checks hieronder uit voordat je een PR opent. De client is volledig in **TypeScript**.
+
 ## Doel en scope
 Breng deze monorepo stapsgewijs naar **volledig TypeScript** met strikte kwaliteit, tests en CI. Minimaliseer diff per PR.
 
 - `ttl_server`: Node + TypeScript.
-- `ttl_client`: TypeScript. (Bundler alleen toevoegen als een taak dit vereist.)
+- `ttl_client`: **TypeScript only**. (Bundler alleen toevoegen als een taak dit vereist.)
 - `ttl_db`: later; kies pas tooling in een aparte PR.
 
-## Omgeving
+## Setup
 - Node 20 LTS.
 - OS-onafhankelijk; scripts draaien op Linux/macOS/Windows.
 - Geen secrets in de repo. Gebruik `.env` lokaal. Commit nooit `.env*`. Lever wel `.env.example`.
 
-## Installeren
+### Installeren
 ```bash
 npm i
 ```
 
-## Root scripts (voeg toe als ze ontbreken)
+## Scripts
+
+### Root scripts (voeg toe als ze ontbreken)
 ```json
 {
   "scripts": {
@@ -31,7 +35,7 @@ npm i
 }
 ```
 
-## Server scripts (voeg toe als ze ontbreken)
+### Server scripts (voeg toe als ze ontbreken)
 In `ttl_server/package.json`:
 ```json
 {
@@ -64,11 +68,12 @@ In `ttl_server/package.json`:
 - Workflow draait: `npm run lint`, `npm run build`, `npm run coverage`.
 - Alleen groene builds mogen mergen.
 
-## Git-regels
+## Git & commit conventions
 - Kleine, logische commits. Conventional commits:
   - `feat(server): ...`, `feat(client): ...`
   - `fix(...)`, `refactor(...)`, `chore(...)`, `test(...)`, `docs(...)`, `ci(...)`, `build(...)`
 - Branch per PR. Voorbeelden: `chore/ts-ci-tests`, `feat/server-architecture`, `feat/client-ts`.
+- Voer alle checks in deze AGENTS.md uit (`npm run lint`, `npm run build`, `npm run coverage`) voordat je commit of een PR opent.
 - PR-beschrijving: doel, aanpak, checklist (onderstaand), breaking changes indien van toepassing.
 
 ## PR-checklist (door agent uit te voeren)
