@@ -9,12 +9,16 @@
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
     "format": "prettier . --write",
     "build": "tsc -b",
+    "typecheck": "tsc -b --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "npm run -w ttl_server coverage",
-    "openapi": "npm run -w ttl_server openapi"
+    "openapi": "npm run -w ttl_server openapi",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/node": "^22.5.0",
     "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
@@ -24,11 +28,19 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.30.0",
+    "husky": "^9.1.7",
     "jsdom": "^26.1.0",
+    "lint-staged": "^16.1.5",
     "prettier": "^3.3.3",
     "supertest": "^7.0.0",
     "tsx": "^4.19.0",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,json}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
