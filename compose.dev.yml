@@ -28,22 +28,19 @@ services:
     volumes:
       - ./ttl_server:/app
       - /app/node_modules
-      - ./tsconfig.base.json:/tsconfig.base.json:ro
     command: npm run dev
-    ports: ["3000:3000"]
+    expose: ["3000"]
 
   client:
     build: { context: ./ttl_client, dockerfile: Dockerfile.dev }
     environment:
       NODE_ENV: development
       TZ: Europe/Amsterdam
-      PORT: 5173
       CHOKIDAR_USEPOLLING: "true"
     depends_on: [server]
     volumes:
       - ./ttl_client:/app
       - /app/node_modules
-      - ./tsconfig.base.json:/tsconfig.base.json:ro
     command: npm start
     ports: ["5173:5173"]
 
