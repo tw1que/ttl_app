@@ -7,7 +7,7 @@ export default defineConfig({
       provider: 'v8',
       all: false,
       include: ['src/**/*.ts'],
-      exclude: ['src/**/*.d.ts', 'src/**/__mocks__/**'],
+      exclude: ['src/**/*.d.ts', 'src/**/__mocks__/**', 'dist/**'],
       reporter: ['text', 'html'],
       thresholds: {
         lines: 80,
