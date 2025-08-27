@@ -1,0 +1,78 @@
+diff --git a/ttl_server/package.json b/ttl_server/package.json
+new file mode 100644
+--- /dev/null
++++ b/ttl_server/package.json
+@@ -0,0 +1,24 @@
++{
++  "name": "ttl_server",
++  "type": "module",
++  "scripts": {
++    "dev": "tsx watch src/server.ts",
++    "build": "tsc -p tsconfig.json",
++    "start": "node dist/server.js",
++    "test": "vitest run"
++  },
++  "dependencies": {
++    "dotenv": "^16.4.5",
++    "express": "^4.19.2",
++    "zod": "^3.23.8"
++  },
++  "devDependencies": {
++    "@types/express": "^4.17.21"
++  }
++}
+diff --git a/ttl_server/tsconfig.json b/ttl_server/tsconfig.json
+new file mode 100644
+--- /dev/null
++++ b/ttl_server/tsconfig.json
+@@ -0,0 +1,15 @@
++{
++  "extends": "../tsconfig.base.json",
++  "compilerOptions": {
++    "outDir": "dist",
++    "rootDir": "src",
++    "baseUrl": ".",
++    "allowJs": true,
++    "checkJs": true
++  },
++  "include": ["src", "tests"]
++}
+diff --git b/ttl_server/src/app.ts a/ttl_server/src/app.ts
+new file mode 100644
+--- /dev/null
++++ b/ttl_server/src/app.ts
+@@ -0,0 +1,27 @@
++import express, { Request, Response } from 'express';
++import { z } from 'zod';
++
++const app = express();
++app.use(express.json());
++
++// health
++app.get('/health', (_req: Request, res: Response) => {
++  res.status(200).json({ ok: true });
++});
++
++// voorbeeld route met validatie
++const IdParam = z.object({ id: z.string().uuid() });
++app.get('/items/:id', (req: Request, res: Response) => {
++  const parsed = IdParam.safeParse(req.params);
++  if (!parsed.success) return res.status(400).json({ error: 'invalid id' });
++  // later: service call
++  return res.json({ id: parsed.data.id });
++});
++
++export default app;
+diff --git a/ttl_server/src/server.ts b/ttl_server/src/server.ts
+new file mode 100644
+--- /dev/null
++++ b/ttl_server/src/server.ts
+@@ -0,0 +1,8 @@
++import 'dotenv/config';
++import app from './app.js';
++
++const PORT = Number(process.env.PORT) || 3000;
++app.listen(PORT, () => {
++  // eslint-disable-next-line no-console
++  console.log(`ttl_server listening on :${PORT}`);
++});
