@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import styled, { css } from 'styled-components';
 
 const StyledForm = styled.form`
@@ -11,27 +11,26 @@ const StyledForm = styled.form`
   grid-row-start: 2;
   grid-row-end: 3;
 `;
+
 const StyledBody = styled.div`
   display: flex;
-
   width: 100%;
   height: 50px;
-
   justify-content: center;
   align-items: center;
-
   background-color: #d97642;
   border-radius: 7px;
   padding: 4px;
   box-shadow: 2px 2px 0.5px 0.5px rgba(0, 0, 0, 1);
 `;
-const StyledInput = styled.input`
+
+const StyledInput = styled.input<{ correct?: boolean }>`
   border: 1px solid black;
   border-radius: 7px;
   background-color: #e84545;
   color: white;
-  ${(props) =>
-    props.correct &&
+  ${({ correct }) =>
+    correct &&
     css`
       background: #00917c;
     `}
@@ -51,32 +50,34 @@ const StyledInput = styled.input`
   }
 `;
 
-function Login({ setAuth, setToken }) {
+interface Props {
+  setAuth: (v: boolean) => void;
+  setToken: (token: string) => void;
+}
+
+const Login: React.FC<Props> = ({ setAuth, setToken }) => {
   const [input, setInput] = useState({ user_name: '', user_password: '' });
   const { user_name, user_password } = input;
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const body = { user_name, user_password };
-
     try {
       const response = await fetch('api/auth/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      const { accessToken } = await response.json();
-
+      const { accessToken } = (await response.json()) as { accessToken: string };
       setToken(accessToken);
       localStorage.setItem('token', accessToken);
       setAuth(true);
     } catch (error) {
-      console.log(error.message);
+      console.log((error as Error).message);
     }
   };
 
@@ -105,6 +106,6 @@ function Login({ setAuth, setToken }) {
       </StyledForm>
     </>
   );
-}
+};
 
 export default Login;
