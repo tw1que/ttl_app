@@ -1,0 +1,55 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ttl
+      POSTGRES_PASSWORD: ttl
+      POSTGRES_DB: ttl
+      TZ: Europe/Amsterdam
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ttl -d ttl"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports: ["5432:5432"]
+
+  server:
+    build: { context: ./ttl_server, dockerfile: Dockerfile.dev }
+    environment:
+      NODE_ENV: development
+      TZ: Europe/Amsterdam
+      PORT: 3000
+      DATABASE_URL: postgres://ttl:ttl@db:5432/ttl
+    depends_on:
+      db: { condition: service_healthy }
+    volumes:
+      - ./ttl_server:/app
+      - /app/node_modules
+    command: npm run dev
+    ports: ["3000:3000"]
+
+  client:
+    build: { context: ./ttl_client, dockerfile: Dockerfile.dev }
+    environment:
+      NODE_ENV: development
+      TZ: Europe/Amsterdam
+      PORT: 5173
+      CHOKIDAR_USEPOLLING: "true"
+    depends_on: [server]
+    volumes:
+      - ./ttl_client:/app
+      - /app/node_modules
+    command: npm start
+    ports: ["5173:5173"]
+
+  adminer:
+    image: adminer:4
+    depends_on:
+      db: { condition: service_healthy }
+    ports: ["8080:8080"]
+
+volumes:
+  pgdata:

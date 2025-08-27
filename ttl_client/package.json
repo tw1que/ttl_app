@@ -22,10 +22,10 @@
     "vite": "^5.0.0"
   },
   "scripts": {
-    "dev": "vite",
     "build": "tsc -p tsconfig.json && vite build",
     "test": "vitest run",
     "test:watch": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "start": "vite"
   }
 }
