@@ -1,3 +1,4 @@
 ttl_db
 node_modules
-ttl_client/src
+ttl_client/.next
+ttl_client/next-env.d.ts
