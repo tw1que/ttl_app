@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm i
+      - run: npm ci --workspaces --include-workspace-root
       - run: npm run lint
       - run: npm run build
       - run: npm run openapi

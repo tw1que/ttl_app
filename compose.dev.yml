@@ -16,7 +16,7 @@ services:
     ports: ["5432:5432"]
 
   server:
-    build: { context: ./ttl_server, dockerfile: Dockerfile.dev }
+    build: { context: ., dockerfile: ttl_server/Dockerfile.dev }
     env_file: .env
     environment:
       NODE_ENV: development

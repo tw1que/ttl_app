@@ -14,7 +14,13 @@
     "test:watch": "vitest",
     "coverage": "npm run -w ttl_server coverage",
     "openapi": "npm run -w ttl_server openapi",
-    "prepare": "husky"
+    "prepare": "husky",
+    "verify:nested-lockfiles": "sh scripts/check-nested-lockfiles.sh",
+    "verify:lockfile": "sh scripts/verify-lockfile-sync.sh"
+  },
+  "engines": {
+    "node": ">=20 <21",
+    "npm": ">=10"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
