@@ -1,0 +1,4 @@
+{
+  "ttl_client/**/*.{ts,tsx,js,jsx}": "eslint --fix --config ttl_client/.eslintrc.json --ignore-pattern 'ttl_client/.next' --ignore-pattern '**/*.d.ts'",
+  "ttl_client/**/*.{json,md,yml,yaml,css,scss,html}": "prettier --write"
+}

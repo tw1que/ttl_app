@@ -1,11 +1,6 @@
-import type { NextRequest } from 'next/server';
-
-export async function GET(_req: NextRequest) {
+export async function GET(_req: Request) {
   return new Response(JSON.stringify({ status: 'ok' }), {
+    headers: { 'content-type': 'application/json' },
     status: 200,
-    headers: {
-      'content-type': 'application/json'
-    }
   });
 }
-

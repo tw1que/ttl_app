@@ -1,0 +1,7 @@
+src/
+index.html
+vite.config.ts
+vitest.config.ts
+
+.next
+next-env.d.ts

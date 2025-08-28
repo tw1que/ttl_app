@@ -1,0 +1,12 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "next/no-html-link-for-pages": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.d.ts", "next-env.d.ts"],
+      "rules": { "@typescript-eslint/triple-slash-reference": "off" }
+    }
+  ]
+}
