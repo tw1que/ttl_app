@@ -18,13 +18,17 @@ services:
 
   server:
     build: { context: ./ttl_server, dockerfile: Dockerfile.dev }
+    env_file: .env
     environment:
       NODE_ENV: development
       TZ: Europe/Amsterdam
-      PORT: 3000
-      DATABASE_URL: postgres://ttl:ttl@db:5432/ttl
     depends_on:
       db: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
     volumes:
       - ./ttl_server:/app
       - /app/node_modules
@@ -33,11 +37,18 @@ services:
 
   client:
     build: { context: ./ttl_client, dockerfile: Dockerfile.dev }
+    env_file: .env
     environment:
       NODE_ENV: development
       TZ: Europe/Amsterdam
       CHOKIDAR_USEPOLLING: "true"
-    depends_on: [server]
+    depends_on:
+      server: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5173/api/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
     volumes:
       - ./ttl_client:/app
       - /app/node_modules
