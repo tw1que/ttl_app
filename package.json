@@ -1,10 +1,8 @@
 {
   "name": "ttl_app",
   "private": true,
-  "workspaces": [
-    "ttl_client",
-    "ttl_server"
-  ],
+  "workspaces": ["ttl_web", "ttl_client", "ttl_server", "ttl_db"],
+  "packageManager": "npm@10.8.2",
   "scripts": {
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint .",
     "format": "prettier . --write",
@@ -12,7 +10,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "npm run -w ttl_server coverage",
-    "openapi": "npm run -w ttl_server openapi"
+    "openapi": "npm run -w ttl_server openapi",
+    "ws:install": "npm install --workspaces --include-workspace-root",
+    "ws:ci": "npm ci --workspaces --include-workspace-root",
+    "web:dev": "npm -w ttl_web run dev",
+    "web:build": "npm -w ttl_web run build",
+    "web:lint": "npm -w ttl_web run lint"
   },
   "devDependencies": {
     "@types/node": "^22.5.0",

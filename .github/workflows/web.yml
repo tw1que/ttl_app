@@ -1,0 +1,13 @@
+name: Web
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use pinned npm
+        run: corepack enable && corepack prepare npm@10.8.2 --activate
+      - name: Install (workspaces)
+        run: npm ci --workspaces --include-workspace-root
+      - name: Build web
+        run: npm run web:build
