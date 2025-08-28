@@ -1,0 +1,14 @@
+services:
+  ttl_web:
+    build:
+      context: .
+      dockerfile: ttl_web/Dockerfile
+    command: npm run dev
+    expose: ["3000"]
+    environment:
+      WATCHPACK_POLLING: "true"
+    healthcheck:
+      test: ["CMD-SHELL","curl -sf http://localhost:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 2s
+      retries: 10
