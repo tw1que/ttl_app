@@ -45,7 +45,13 @@
   },
   "settings": {
     "import/resolver": {
-      "typescript": {}
+      "typescript": {
+        "project": [
+          "./tsconfig.json",
+          "./ttl_client/tsconfig.json",
+          "./ttl_server/tsconfig.json"
+        ]
+      }
     }
   }
 }

@@ -27,3 +27,9 @@ curl http://localhost:5173/api/health
 ```
 
 Verwacht HTTP 200.
+
+### Client
+
+- Ontwikkeling draait `next dev` op poort **5173**.
+- `compose.dev.yml` zet `NODE_ENV=development` voor de client.
+- Productie: `npm run -w ttl_client build` gevolgd door `npm run -w ttl_client start`.
