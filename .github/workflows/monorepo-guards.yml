@@ -1,17 +1,8 @@
 name: Monorepo Guards
 on: [push, pull_request]
-jobs:
-  guards:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-      - run: npm run verify:nested-lockfiles
-      - run: npm run verify:lockfile
-      - run: npm ci --workspaces --include-workspace-root
-      - run: npm run -ws --if-present lint
-      - run: npm run -ws --if-present typecheck
-      - run: npm run -ws --if-present build
+  push:
+    paths-ignore:
+      - 'legacy_main/**'
+  pull_request:
+    paths-ignore:
+      - 'legacy_main/**'

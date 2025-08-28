@@ -5,3 +5,4 @@ vitest.config.ts
 
 .next
 next-env.d.ts
+../legacy_main

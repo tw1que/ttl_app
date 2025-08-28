@@ -7,6 +7,7 @@
     "allowJs": true,
     "checkJs": true
   },
-  "include": ["src"],
-  "exclude": ["../legacy_main", "../legacy_main"]
+  "include": [
+    "src"
+  ]
 }

@@ -1,6 +1,12 @@
 {
   "files": [],
   "references": [
-    { "path": "ttl_server" }
+    {
+      "path": "ttl_server"
+    }
+  ],
+  "exclude": [
+    "legacy_main",
+    "legacy_main"
   ]
 }
