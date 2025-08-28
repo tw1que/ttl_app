@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   db:
     image: postgres:16-alpine
@@ -17,7 +16,7 @@ services:
     ports: ["5432:5432"]
 
   server:
-    build: { context: ./ttl_server, dockerfile: Dockerfile.dev }
+    build: { context: ., dockerfile: ttl_server/Dockerfile.dev }
     env_file: .env
     environment:
       NODE_ENV: development
@@ -36,7 +35,7 @@ services:
     expose: ["3000"]
 
   client:
-    build: { context: ./ttl_client, dockerfile: Dockerfile.dev }
+    build: { context: ., dockerfile: ttl_client/Dockerfile.dev }
     env_file: .env
     environment:
       NODE_ENV: development
@@ -52,7 +51,7 @@ services:
     volumes:
       - ./ttl_client:/app
       - /app/node_modules
-    command: npm start
+    command: ["npm","run","-w","ttl_client","dev"]
     ports: ["5173:5173"]
 
   adminer:
