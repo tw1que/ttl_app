@@ -9,7 +9,7 @@
 - Kleine commits. Imperatieve messages.
 - Test eerst lokaal: `npm run coverage`.
 - Geen `any`. Gebruik `unknown` of echte types.
-- Publieke API's testen: happy + één failure-pad.
+- Publieke API's testen: happy + Ã©Ã©n failure-pad.
 
 ## Commit conventies
 - `feat(server): ...`
@@ -25,3 +25,12 @@
 ## Coverage drempels
 - Server: lines 80, funcs 80, branches 70, statements 80.
 - Build faalt onder drempel.
+
+## Line endings (LF policy)
+Run once in this repo to align local Git with the policy:
+
+```bash
+git config core.autocrlf false
+git config core.eol lf
+git config core.safecrlf warn
+```

@@ -5,8 +5,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check for CRLF in text files
+        run: |
+          set -e
+          offending=$(git grep -Il $'\r' -- . || true)
+          offending=$(echo "$offending" | grep -Evi '\.(png|jpe?g|gif|ico|pdf|zip|gz|bz2|7z|woff2?|bat|cmd|ps1)$' || true)
+          if [ -n "$offending" ]; then
+            echo "Found CRLF in:"
+            echo "$offending"
+            exit 1
+          fi
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: 'npm' }
+        with:
+          node-version: 20
+          cache: npm
       - run: npm i
       - run: npm run lint
       - run: npm run build
